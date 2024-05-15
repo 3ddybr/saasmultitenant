@@ -10,8 +10,8 @@ import {
 } from './styles'
 
 import { X } from '@phosphor-icons/react/dist/ssr'
-import { useFirebase } from '@/app/(app)/app/hooks/useFirebase'
-import { useStorage } from '@/app/(app)/app/contexts/useStorage'
+import { useFirebase } from '@/app/(app)/[slug]/hooks/useFirebase'
+import { useStorage } from '@/app/(app)/[slug]/contexts/useStorage'
 
 export function InsertImg() {
   const { startUpload, deleteImg } = useFirebase()
