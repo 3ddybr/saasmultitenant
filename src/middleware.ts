@@ -9,7 +9,7 @@ export default function middleware(request: NextRequest) {
   console.log('dentro do middle', pathname)
 
   if (!token) {
-    if (request.nextUrl.pathname === '/app') {
+    if (request.nextUrl.pathname === '/') {
       return NextResponse.next()
     }
     return NextResponse.redirect(signInURL)
