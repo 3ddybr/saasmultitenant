@@ -35,20 +35,20 @@ export function MenuMobile({
               {token === null || token === undefined ? (
                 ''
               ) : (
-                <ActiveLink href="/app/veiculos">
+                <ActiveLink href="/veiculos">
                   <span>Veículos</span>
                 </ActiveLink>
               )}
 
-              <ActiveLink href="/app/empresa">
+              <ActiveLink href="/empresa">
                 <span>Empresa</span>
               </ActiveLink>
-              <ActiveLink href="/app/contato">
+              <ActiveLink href="/contato">
                 <span>Contato</span>
               </ActiveLink>
             </nav>
 
-            <Link href="/app/login">
+            <Link href="/login">
               <MobileButtonLink onClick={() => setMenuIsVisible(false)}>
                 Login
               </MobileButtonLink>
@@ -71,20 +71,20 @@ export function MenuMobile({
                 {token === null || token === undefined ? (
                   ''
                 ) : (
-                  <ActiveLink href="/app/veiculos">
+                  <ActiveLink href="/veiculos">
                     <span>Veículos</span>
                   </ActiveLink>
                 )}
-                <ActiveLink href="/app/empresa">
+                <ActiveLink href="/empresa">
                   <span>Empresa</span>
                 </ActiveLink>
-                <ActiveLink href="/app/contato">
+                <ActiveLink href="/contato">
                   <span>Contato</span>
                 </ActiveLink>
               </nav>
 
               {/* <MagnifyingGlass size={17} weight="bold" color="var(--bg)" /> */}
-              <Link href="/app/login">
+              <Link href="/login">
                 <MobileButtonLink onClick={() => setMenuIsVisible(false)}>
                   Login
                 </MobileButtonLink>

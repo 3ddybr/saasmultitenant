@@ -78,7 +78,7 @@ export default function Product({ params }: ProductProps) {
         await deleteImg(car.refImage[i].imgRefFullPath)
       }
       await deleteVehicle(car.id)
-      router.push('/app')
+      router.push('/')
     }
   }
 
@@ -363,7 +363,7 @@ export default function Product({ params }: ProductProps) {
                       {car.type === '1' ? (
                         <Link
                           onClick={() => dataCar(car as VehiclesDataProps)}
-                          href={`/app/veiculos/VehicleRegistrationForm`}
+                          href={`/veiculos/VehicleRegistrationForm`}
                         >
                           <span>
                             <Pencil size={24} />
@@ -375,7 +375,7 @@ export default function Product({ params }: ProductProps) {
                           onClick={() =>
                             dataMotorcycle(car as MotorcyclesDataProps)
                           }
-                          href={`/app/veiculos/MotorcycleRegistrationForm`}
+                          href={`/veiculos/MotorcycleRegistrationForm`}
                         >
                           <span>
                             <Pencil size={24} />

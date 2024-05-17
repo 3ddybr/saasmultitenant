@@ -17,29 +17,26 @@ export function Header({ setMenuIsVisible }: any) {
   return (
     <HeaderContainer>
       <HeaderContent>
-        <Link
-          className={`link ${pathname === '/teste' ? 'active' : ''}`}
-          href="/"
-        >
+        <Link className={`link ${pathname === '/' ? 'active' : ''}`} href="/">
           <Image src={LogoIng} width={120} alt="logo" priority />
         </Link>
         <div>
           <nav>
             <ul>
-              <ActiveLink href="/teste">
+              <ActiveLink href="/">
                 <span>Inicio</span>
               </ActiveLink>
               {token === null || token === undefined ? (
                 ''
               ) : (
-                <ActiveLink href="/app/veiculos">
+                <ActiveLink href="/veiculos">
                   <span>Veículos</span>
                 </ActiveLink>
               )}
-              <ActiveLink href="/app/empresa">
+              <ActiveLink href="/empresa">
                 <span>Empresa</span>
               </ActiveLink>
-              <ActiveLink href="/app/contato">
+              <ActiveLink href="/contato">
                 <span>Contato</span>
               </ActiveLink>
             </ul>
@@ -53,8 +50,8 @@ export function Header({ setMenuIsVisible }: any) {
           /> */}
           {token === null || token === undefined ? (
             <Link
-              className={`link ${pathname === '/app/login' ? 'active' : ''}`}
-              href="/app/login"
+              className={`link ${pathname === '/login' ? 'active' : ''}`}
+              href="/login"
             >
               <HeaderButtonLink>Login</HeaderButtonLink>
             </Link>

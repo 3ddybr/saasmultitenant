@@ -39,7 +39,7 @@ export default function Login() {
       // localStorage.setItem('tokenVehicles', user.accessToken as string)
       // localStorage.setItem('user', JSON.stringify(user))
       updateToken(user.accessToken as string)
-      router.push('/app/veiculos')
+      router.push('/veiculos')
     } catch (error) {
       alert('email ou senha inválidos')
       console.log(error)

@@ -19,7 +19,7 @@ export default function Veiculos() {
           <div>
             <section
               onClick={() => {
-                router.push('/app/veiculos/VehicleRegistrationForm')
+                router.push('/veiculos/VehicleRegistrationForm')
                 dataCar({} as VehiclesDataProps)
               }}
             >
@@ -28,7 +28,7 @@ export default function Veiculos() {
             </section>
             <section
               onClick={() => {
-                router.push('/app/veiculos/MotorcycleRegistrationForm')
+                router.push('/veiculos/MotorcycleRegistrationForm')
                 dataMotorcycle({} as MotorcyclesDataProps)
               }}
             >

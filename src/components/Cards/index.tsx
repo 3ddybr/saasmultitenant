@@ -70,7 +70,7 @@ export function Cards({
             })}
           </h2>
         </main>
-        <Link href={`/app/details/${id}`}>
+        <Link href={`/details/${id}`}>
           <CardButtonLink>Detalhes</CardButtonLink>
         </Link>
       </CardContent>
