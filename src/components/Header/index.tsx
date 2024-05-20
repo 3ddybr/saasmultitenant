@@ -13,7 +13,10 @@ import { useAuth } from '@/app/(app)/[slug]/contexts/useAuth'
 export function Header({ setMenuIsVisible }: any) {
   const { token, handleLogout } = useAuth()
   const pathname = usePathname()
-  // console.log(token)
+
+  const slug = 'testeslug'
+
+  console.log(pathname)
   return (
     <HeaderContainer>
       <HeaderContent>
@@ -29,14 +32,14 @@ export function Header({ setMenuIsVisible }: any) {
               {token === null || token === undefined ? (
                 ''
               ) : (
-                <ActiveLink href="/veiculos">
+                <ActiveLink href={`/${slug}/veiculos`}>
                   <span>Veículos</span>
                 </ActiveLink>
               )}
-              <ActiveLink href="/empresa">
+              <ActiveLink href={`/${slug}/empresa`}>
                 <span>Empresa</span>
               </ActiveLink>
-              <ActiveLink href="/contato">
+              <ActiveLink href={`/${slug}/contato`}>
                 <span>Contato</span>
               </ActiveLink>
             </ul>
@@ -51,7 +54,7 @@ export function Header({ setMenuIsVisible }: any) {
           {token === null || token === undefined ? (
             <Link
               className={`link ${pathname === '/login' ? 'active' : ''}`}
-              href="/login"
+              href={`/${slug}/login`}
             >
               <HeaderButtonLink>Login</HeaderButtonLink>
             </Link>

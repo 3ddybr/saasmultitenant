@@ -28,7 +28,7 @@ export default function Veiculos() {
             </section>
             <section
               onClick={() => {
-                router.push('/veiculos/MotorcycleRegistrationForm')
+                router.push(`$[slug]/veiculos/MotorcycleRegistrationForm`)
                 dataMotorcycle({} as MotorcyclesDataProps)
               }}
             >

@@ -21,7 +21,7 @@ export function MenuMobile({
   }, [menuIsVisible])
 
   const { token } = useAuth()
-
+  const slug = 'testeslug'
   return (
     <>
       {menuIsVisible === false ? (
@@ -43,12 +43,12 @@ export function MenuMobile({
               <ActiveLink href="/empresa">
                 <span>Empresa</span>
               </ActiveLink>
-              <ActiveLink href="/contato">
+              <ActiveLink href={`/${slug}/contato`}>
                 <span>Contato</span>
               </ActiveLink>
             </nav>
 
-            <Link href="/login">
+            <Link href={`/${slug}/login`}>
               <MobileButtonLink onClick={() => setMenuIsVisible(false)}>
                 Login
               </MobileButtonLink>
@@ -65,26 +65,26 @@ export function MenuMobile({
             />
             <div>
               <nav onClick={() => setMenuIsVisible(false)}>
-                <ActiveLink href="/app">
+                <ActiveLink href="/">
                   <span>Inicio</span>
                 </ActiveLink>
                 {token === null || token === undefined ? (
                   ''
                 ) : (
-                  <ActiveLink href="/veiculos">
+                  <ActiveLink href={`/${slug}/veiculos`}>
                     <span>Veículos</span>
                   </ActiveLink>
                 )}
-                <ActiveLink href="/empresa">
+                <ActiveLink href={`/${slug}/empresa`}>
                   <span>Empresa</span>
                 </ActiveLink>
-                <ActiveLink href="/contato">
+                <ActiveLink href={`/${slug}/contato`}>
                   <span>Contato</span>
                 </ActiveLink>
               </nav>
 
               {/* <MagnifyingGlass size={17} weight="bold" color="var(--bg)" /> */}
-              <Link href="/login">
+              <Link href={`/${slug}/login`}>
                 <MobileButtonLink onClick={() => setMenuIsVisible(false)}>
                   Login
                 </MobileButtonLink>
