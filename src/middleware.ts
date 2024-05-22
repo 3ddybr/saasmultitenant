@@ -102,48 +102,6 @@
 // }
 
 // melhor ate
-// import { NextRequest, NextResponse } from 'next/server'
-
-// export default function middleware(request: NextRequest) {
-//   const { pathname } = request.nextUrl
-//   const hostname = request.headers.get('host') || ''
-
-//   // Verifica se o caminho é /dashboard, /api ou na raiz (app)/(site)
-//   if (pathname.startsWith('/app') || pathname.startsWith('/api')) {
-//     return NextResponse.next()
-//   }
-
-//   // Pega o slug do subdomínio
-//   let slug = hostname.split(':')[0]
-
-//   if (
-//     hostname.indexOf('.catalogoveiculos.com.br') >= 0 ||
-//     hostname.indexOf('.app-local') >= 0
-//   ) {
-//     // subdomínio
-//     slug = hostname.split('.')[0]
-//   }
-
-//   const url = request.nextUrl.clone()
-//   url.pathname = `/${slug}${pathname}`
-
-//   // Reescreve a URL se não for um domínio padrão
-//   if (hostname !== 'localhost:3000' && hostname !== 'catalogoveiculos.com.br') {
-//     return NextResponse.rewrite(url)
-//   }
-
-//   return NextResponse.next()
-// }
-
-// export const config = {
-//   matcher: [
-//     '/',
-//     '/veiculos/:path*',
-//     '/dashboard/veiculos/:path*',
-//     '/[slug]/veiculos/:path*',
-//   ],
-// }
-
 import { NextRequest, NextResponse } from 'next/server'
 
 export default function middleware(request: NextRequest) {
@@ -151,7 +109,7 @@ export default function middleware(request: NextRequest) {
   const hostname = request.headers.get('host') || ''
 
   // Verifica se o caminho é /dashboard, /api ou na raiz (app)/(site)
-  if (pathname.startsWith('/app') || pathname.startsWith('/api')) {
+  if (pathname.startsWith('/dashboard') || pathname.startsWith('/api')) {
     return NextResponse.next()
   }
 
@@ -170,18 +128,7 @@ export default function middleware(request: NextRequest) {
   url.pathname = `/${slug}${pathname}`
 
   // Reescreve a URL se não for um domínio padrão
-  if (
-    (hostname === 'localhost:3000' || hostname === 'catalogoveiculos.com.br') &&
-    pathname === '/'
-  ) {
-    // return NextResponse.rewrite(
-    //   new URL('/src/app/(site)/index.tsx', 'http://localhost:3000'),
-    // )
-    return NextResponse.next()
-  } else if (
-    hostname !== 'localhost:3000' &&
-    hostname !== 'catalogoveiculos.com.br'
-  ) {
+  if (hostname !== 'localhost:3000' && hostname !== 'catalogoveiculos.com.br') {
     return NextResponse.rewrite(url)
   }
 
@@ -196,3 +143,58 @@ export const config = {
     '/[slug]/veiculos/:path*',
   ],
 }
+
+// import { NextRequest, NextResponse } from 'next/server'
+
+// export default function middleware(request: NextRequest) {
+//   const { pathname } = request.nextUrl
+//   const hostname = request.headers.get('host') || ''
+
+//   // Verifica se o caminho é /dashboard, /api ou na raiz (app)/(site)
+//   if (pathname.startsWith('/dashboard') || pathname.startsWith('/api')) {
+//     console.log('linha 1', hostname)
+//     return NextResponse.next()
+//   }
+
+//   // Pega o slug do subdomínio
+//   let slug = hostname.split(':')[0]
+
+//   if (
+//     hostname.indexOf('.catalogoveiculos.com.br') >= 0 ||
+//     hostname.indexOf('.app-local') >= 0
+//   ) {
+//     // subdomínio
+//     slug = hostname.split('.')[0]
+//   }
+
+//   const url = request.nextUrl.clone()
+//   url.pathname = `/${slug}${pathname}`
+
+//   // Reescreve a URL se não for um domínio padrão
+//   if (
+//     (hostname === 'localhost:3000' || hostname === 'catalogoveiculos.com.br') &&
+//     pathname === '/'
+//   ) {
+//     // return NextResponse.rewrite(
+//     //   new URL('/src/app/(site)/index.tsx', 'http://localhost:3000'),
+//     // )
+//     // console.log(url)
+//     return NextResponse.next()
+//   } else if (
+//     hostname !== 'localhost:3000' &&
+//     hostname !== 'catalogoveiculos.com.br'
+//   ) {
+//     return NextResponse.rewrite(url)
+//   }
+
+//   return NextResponse.next()
+// }
+
+// export const config = {
+//   matcher: [
+//     '/',
+//     '/veiculos/:path*',
+//     '/dashboard/veiculos/:path*',
+//     '/[slug]/veiculos/:path*',
+//   ],
+// }
