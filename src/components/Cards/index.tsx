@@ -26,6 +26,7 @@ export function Cards({
   id,
   exchange,
 }: CardProps) {
+  const slug = 'testeslug'
   return (
     <CardContainer>
       <CardContent>
@@ -70,7 +71,7 @@ export function Cards({
             })}
           </h2>
         </main>
-        <Link href={`/details/${id}`}>
+        <Link href={`/${slug}/details/${id}`}>
           <CardButtonLink>Detalhes</CardButtonLink>
         </Link>
       </CardContent>
