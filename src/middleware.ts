@@ -109,13 +109,7 @@ export default function middleware(request: NextRequest) {
   const hostname = request.headers.get('host') || ''
 
   // Verifica se o caminho é /dashboard, /api ou na raiz (app)/(site)
-  if (
-    !(
-      pathname.startsWith('/dashboard') ||
-      pathname.startsWith('/api') ||
-      hostname === 'catalogoveiculos.com.br'
-    )
-  ) {
+  if (!(pathname.startsWith('/dashboard') || pathname.startsWith('/api'))) {
     // Pega o slug do subdomínio
     let slug = hostname.split(':')[0]
 
@@ -125,16 +119,17 @@ export default function middleware(request: NextRequest) {
     ) {
       // subdomínio
       slug = hostname.split('.')[0]
+      const url = request.nextUrl.clone()
+      url.pathname = `/${slug}${pathname}`
     }
-
-    const url = request.nextUrl.clone()
-    url.pathname = `/${slug}${pathname}`
 
     // Reescreve a URL se não for um domínio padrão
     if (
       hostname !== 'localhost:3000' &&
       hostname !== 'catalogoveiculos.com.br'
     ) {
+      const url = request.nextUrl.clone()
+      url.pathname = `/${slug}${pathname}`
       return NextResponse.rewrite(url)
     }
 
