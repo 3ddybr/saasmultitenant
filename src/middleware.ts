@@ -112,6 +112,7 @@ export default function middleware(request: NextRequest) {
   if (!(pathname.startsWith('/dashboard') || pathname.startsWith('/api'))) {
     // Pega o slug do subdomínio
     let slug = hostname.split(':')[0]
+    console.log('log do slug 115', slug)
     console.log('log do hostname', hostname)
     if (
       hostname.indexOf('.catalogoveiculos.com.br') >= 0 ||
@@ -119,6 +120,7 @@ export default function middleware(request: NextRequest) {
     ) {
       // subdomínio
       slug = hostname.split('.')[0]
+      console.log('slug linha 123', slug)
       const url = request.nextUrl.clone()
       url.pathname = `/${slug}${pathname}`
 
