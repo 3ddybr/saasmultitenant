@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import ActiveLink from '../ActiveLink'
 import { MenuContainer, MenuContainerMobile, MobileButtonLink } from './styles'
 import { useAuth } from '@/app/(app)/[slug]/contexts/useAuth'
+import { useFirebase } from '@/app/(app)/[slug]/hooks/useFirebase'
 
 type MenuMobileProps = {
   menuIsVisible: boolean
@@ -21,7 +22,7 @@ export function MenuMobile({
   }, [menuIsVisible])
 
   const { token } = useAuth()
-  const slug = 'testeslug'
+  const { slug } = useFirebase()
   return (
     <>
       {menuIsVisible === false ? (
@@ -35,12 +36,12 @@ export function MenuMobile({
               {token === null || token === undefined ? (
                 ''
               ) : (
-                <ActiveLink href="/veiculos">
+                <ActiveLink href={`/${slug}/veiculos`}>
                   <span>Veículos</span>
                 </ActiveLink>
               )}
 
-              <ActiveLink href="/empresa">
+              <ActiveLink href={`/${slug}/empresa`}>
                 <span>Empresa</span>
               </ActiveLink>
               <ActiveLink href={`/${slug}/contato`}>

@@ -1,5 +1,6 @@
 // 'use client'
 // import Image from 'next/image'
+import { useFirebase } from '@/app/(app)/[slug]/hooks/useFirebase'
 import { CardButtonLink, CardContainer, CardContent } from './styles'
 
 import { Gauge, Swap } from '@phosphor-icons/react/dist/ssr'
@@ -26,7 +27,7 @@ export function Cards({
   id,
   exchange,
 }: CardProps) {
-  const slug = 'testeslug'
+  const { slug } = useFirebase()
   return (
     <CardContainer>
       <CardContent>
