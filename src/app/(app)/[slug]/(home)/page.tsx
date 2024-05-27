@@ -17,7 +17,6 @@ export default function Home() {
   const [docLimitVehicles, setDocLimitVehicles] = useState<
     VehiclesGeralProps[]
   >([])
-  // console.log('retorno de todos os carros', docLimitVehicles)
 
   useEffect(() => {
     async function LimitVehicles() {

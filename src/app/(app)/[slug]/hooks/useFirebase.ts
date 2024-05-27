@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   deleteObject,
   getDownloadURL,
@@ -30,7 +30,16 @@ type ImageProps = {
 export function useFirebase() {
   const [progress, setProgress] = useState(0)
   const { refImage, updateRefImages, deleteImgContext } = useStorage()
+  const [slug, setSlug] = useState('')
 
+  useEffect(() => {
+    const currentUrl = window.location.href
+    const urlSplit = currentUrl.split('.')[0]
+    const slug = urlSplit.split('//')[1]
+    setSlug(slug)
+    console.log('dentro useFirebase', slug)
+  }, [slug])
+  console.log('dentro do firebase linha 42', slug)
   // Insert images to firebase and get the image url.
   function startUpload(file: File) {
     if (!file) {
@@ -38,7 +47,7 @@ export function useFirebase() {
     }
     const fileId = createId()
     const formatFile = file.type.split('/')[1]
-
+    // compor storageRef com slugImagesCars
     const storageRef = ref(storage, `imagesCars/${fileId}.${formatFile}`)
     const uploadTask = uploadBytesResumable(storageRef, file)
 
@@ -180,5 +189,6 @@ export function useFirebase() {
     SearchVehicleType,
     SearchVehicleTypeBrand,
     deleteVehicle,
+    slug,
   }
 }
