@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     try {
       await signOut(auth)
       Cookies.remove('tokenVehicles')
-      router.push('/app')
+      router.push('/')
       setToken(null)
     } catch (error) {
       console.error(error)

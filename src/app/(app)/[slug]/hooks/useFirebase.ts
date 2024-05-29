@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   deleteObject,
   getDownloadURL,
@@ -30,6 +30,36 @@ type ImageProps = {
 export function useFirebase() {
   const [progress, setProgress] = useState(0)
   const { refImage, updateRefImages, deleteImgContext } = useStorage()
+  const [slug, setSlug] = useState('')
+
+  useEffect(() => {
+    const currentUrl = window.location.href
+    const urlSplit = currentUrl.split('.')[0]
+    const slugSplit = urlSplit.split('//')[1]
+
+    // if (slug === tenant1 || customdomain) { setslug(vehicles) } else { setSlug(slug)}
+    if (
+      slugSplit === 'tenant1' ||
+      slugSplit === 'tenant2' ||
+      slugSplit === 'customdomain'
+    ) {
+      setSlug('vehicles')
+    } else {
+      setSlug(slugSplit)
+    }
+    // const SearchUserSlug = async (slugSplit: string) => {
+    //   const usersCol = collection(firestoreDB, `users`)
+    //   const q = query(usersCol, where('slug', '==', slugSplit))
+    //   const slugSnapshot = await getDocs(q)
+    //   const vehiclesList = slugSnapshot.docs.map((doc) => ({
+    //     ...doc.data(),
+    //     id: doc.id,
+    //   })) as VehiclesDataProps[]
+    //   return vehiclesList
+    // }
+    // console.log('dentro useFirebase', slugSplit)
+  }, [])
+  // console.log('dentro do firebase linha 42', slug)
 
   // Insert images to firebase and get the image url.
   function startUpload(file: File) {
@@ -38,7 +68,7 @@ export function useFirebase() {
     }
     const fileId = createId()
     const formatFile = file.type.split('/')[1]
-
+    // compor storageRef com slugImagesCars
     const storageRef = ref(storage, `imagesCars/${fileId}.${formatFile}`)
     const uploadTask = uploadBytesResumable(storageRef, file)
 
@@ -93,7 +123,7 @@ export function useFirebase() {
 
   // getAll Vehicles
   const getAllVehicles = async () => {
-    const vehiclesCol = collection(firestoreDB, 'vehicles')
+    const vehiclesCol = collection(firestoreDB, `${slug}`)
     const vehiclesSnapshot = await getDocs(vehiclesCol)
     const vehiclesList = vehiclesSnapshot.docs.map((doc) => doc.data())
     return vehiclesList
@@ -101,45 +131,46 @@ export function useFirebase() {
 
   // getVehicles por id
   const getVehicle = async (id: string) => {
-    const vehiclesCol = doc(firestoreDB, 'vehicles', id)
-    const vehiclesSnapshot = await getDoc(vehiclesCol)
-    const data = { ...vehiclesSnapshot.data(), id: vehiclesSnapshot.id }
-    return data as VehiclesDataProps
+    if (slug !== '') {
+      const vehiclesCol = doc(firestoreDB, `${slug}`, id)
+      const vehiclesSnapshot = await getDoc(vehiclesCol)
+      const data = { ...vehiclesSnapshot.data(), id: vehiclesSnapshot.id }
+      return data as VehiclesDataProps
+    } else {
+      return {}
+    }
   }
 
   // get limit Vehicles
   const getLimitVehicles = async (quant: number) => {
-    const vehiclesCol = collection(firestoreDB, 'vehicles')
-    const q = query(vehiclesCol, limit(quant))
-    const vehiclesSnapshot = await getDocs(q)
-    const vehiclesList = vehiclesSnapshot.docs.map((doc) => ({
-      ...doc.data(),
-      id: doc.id,
-    })) as VehiclesDataProps[]
-
-    // const arraysJuntos = vehiclesList.map((array) => {
-    //   return array.reduce((obj1, obj2) => {
-    //     return { ...obj1, ...obj2 }
-    //   }, {})
-    // }) as VehiclesDataProps[]
-
-    return vehiclesList
+    if (slug !== '') {
+      const vehiclesCol = collection(firestoreDB, `${slug}`)
+      const q = query(vehiclesCol, limit(quant))
+      const vehiclesSnapshot = await getDocs(q)
+      const vehiclesList = vehiclesSnapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      })) as VehiclesDataProps[]
+      return vehiclesList
+    } else {
+      return []
+    }
   }
 
   const InsertVehicle = async (data: object) => {
-    const vehiclesCol = collection(firestoreDB, 'vehicles')
+    const vehiclesCol = collection(firestoreDB, `${slug}`)
     const docRef = await addDoc(vehiclesCol, { ...data, refImage })
 
     return docRef
   }
 
   const UpdateVehicle = async (data: object, id: string) => {
-    const vehiclesCol = doc(firestoreDB, 'vehicles', id)
+    const vehiclesCol = doc(firestoreDB, `${slug}`, id)
     await updateDoc(vehiclesCol, data)
   }
 
   const SearchVehicleTypeBrand = async (type: string, brand: string) => {
-    const vehiclesCol = collection(firestoreDB, 'vehicles')
+    const vehiclesCol = collection(firestoreDB, `${slug}`)
     const q = query(
       vehiclesCol,
       where('type', '==', type),
@@ -154,7 +185,7 @@ export function useFirebase() {
   }
 
   const SearchVehicleType = async (type: string) => {
-    const vehiclesCol = collection(firestoreDB, 'vehicles')
+    const vehiclesCol = collection(firestoreDB, `${slug}`)
     const q = query(vehiclesCol, where('type', '==', type))
     const vehiclesSnapshot = await getDocs(q)
     const vehiclesList = vehiclesSnapshot.docs.map((doc) => ({
@@ -165,7 +196,7 @@ export function useFirebase() {
   }
 
   const deleteVehicle = async (id: string) => {
-    await deleteDoc(doc(firestoreDB, 'vehicles', id))
+    await deleteDoc(doc(firestoreDB, `${slug}`, id))
   }
 
   return {
@@ -180,5 +211,6 @@ export function useFirebase() {
     SearchVehicleType,
     SearchVehicleTypeBrand,
     deleteVehicle,
+    slug,
   }
 }

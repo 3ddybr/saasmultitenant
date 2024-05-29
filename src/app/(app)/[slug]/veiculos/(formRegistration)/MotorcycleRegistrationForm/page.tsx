@@ -58,7 +58,7 @@ const schemaFormProduto = yup.object({
 })
 
 export default function MotorcycleRegistrationForm() {
-  const { InsertVehicle, UpdateVehicle } = useFirebase()
+  const { InsertVehicle, UpdateVehicle, slug } = useFirebase()
   const { refImage, motorcycle, dataMotorcycle } = useStorage()
   const [buttonState, setButtonState] = useState(false)
   const router = useRouter()
@@ -114,12 +114,12 @@ export default function MotorcycleRegistrationForm() {
         await UpdateVehicle({ ...data, refImage }, motorcycle.id)
         dataMotorcycle({} as MotorcyclesDataProps)
         reset() // limpa o formulário
-        router.push(`/details/${motorcycle.id}`)
+        router.push(`/${slug}/details/${motorcycle.id}`)
         setButtonState(false)
         alert('Atualizado com sucesso!')
       } else {
         const ref = await InsertVehicle({ ...data, refImage })
-        router.push(`/details/${ref.id}`)
+        router.push(`/${slug}/details/${ref.id}`)
         reset() // limpa o formulário
         setButtonState(false)
         alert('Cadastrado com sucesso!')
@@ -138,9 +138,9 @@ export default function MotorcycleRegistrationForm() {
       <VeiculosContentForm onSubmit={handleSubmit(handleSubmitForm)}>
         <div>
           {motorcycle.id ? (
-            <Link href={`/details/${motorcycle.id}`}>Voltar</Link>
+            <Link href={`/${slug}/details/${motorcycle.id}`}>Voltar</Link>
           ) : (
-            <Link href="/veiculos">Voltar</Link>
+            <Link href={`/${slug}/veiculos`}>Voltar</Link>
           )}
         </div>
         <div>

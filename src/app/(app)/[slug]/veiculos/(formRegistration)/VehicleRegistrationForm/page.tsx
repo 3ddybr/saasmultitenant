@@ -59,7 +59,7 @@ const schemaFormProduto = yup.object({
 })
 
 export default function VehicleRegistrationForm() {
-  const { InsertVehicle, UpdateVehicle } = useFirebase()
+  const { InsertVehicle, UpdateVehicle, slug } = useFirebase()
   const { refImage, vehicle, dataCar } = useStorage()
   const [buttonState, setButtonState] = useState(false)
 
@@ -140,9 +140,9 @@ export default function VehicleRegistrationForm() {
       <VeiculosContentForm onSubmit={handleSubmit(handleSubmitForm)}>
         <div>
           {vehicle.id ? (
-            <Link href={`/details/${vehicle.id}`}>Voltar</Link>
+            <Link href={`${slug}/details/${vehicle.id}`}>Voltar</Link>
           ) : (
-            <Link href="/veiculos">Voltar</Link>
+            <Link href={`${slug}/veiculos`}>Voltar</Link>
           )}
         </div>
         <div>

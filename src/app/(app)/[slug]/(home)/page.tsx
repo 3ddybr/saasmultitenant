@@ -12,12 +12,11 @@ import { useStorage } from '../contexts/useStorage'
 import { SkeletonCards } from '@/components/SkeletonCards'
 
 export default function Home() {
-  const { getLimitVehicles } = useFirebase()
+  const { getLimitVehicles, slug } = useFirebase()
   const { vehicles } = useStorage()
   const [docLimitVehicles, setDocLimitVehicles] = useState<
     VehiclesGeralProps[]
   >([])
-  // console.log('retorno de todos os carros', docLimitVehicles)
 
   useEffect(() => {
     async function LimitVehicles() {
@@ -32,7 +31,7 @@ export default function Home() {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [vehicles])
+  }, [vehicles, slug])
   return (
     <HomeContainer>
       <Banner />

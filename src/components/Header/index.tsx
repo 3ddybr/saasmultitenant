@@ -8,15 +8,15 @@ import { List } from '@phosphor-icons/react'
 import { usePathname } from 'next/navigation'
 import { HeaderButtonLink, HeaderContainer, HeaderContent } from './styles'
 import { useAuth } from '@/app/(app)/[slug]/contexts/useAuth'
+import { useFirebase } from '@/app/(app)/[slug]/hooks/useFirebase'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function Header({ setMenuIsVisible }: any) {
   const { token, handleLogout } = useAuth()
   const pathname = usePathname()
+  const { slug } = useFirebase()
 
-  const slug = 'testeslug'
-
-  console.log(pathname)
+  // console.log(slug)
   return (
     <HeaderContainer>
       <HeaderContent>
