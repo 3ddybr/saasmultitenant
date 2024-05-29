@@ -6,6 +6,7 @@ import { LoginButtonLink, LoginContainer, LoginContent } from './styles'
 import { useAuth } from '../contexts/useAuth'
 import { useRouter } from 'next/navigation'
 import Cookies from 'js-cookie'
+import { useFirebase } from '../hooks/useFirebase'
 
 interface userCredentialProps extends User {
   accessToken?: string
@@ -16,6 +17,7 @@ export default function Login() {
   const [password, setPassword] = useState('')
   const { handleLogout, token, updateToken } = useAuth()
   const router = useRouter()
+  const { slug } = useFirebase()
 
   // const token = localStorage.getItem('tokenVehicles')
   // const user = JSON.parse(localStorage.getItem('user'))
@@ -39,7 +41,7 @@ export default function Login() {
       // localStorage.setItem('tokenVehicles', user.accessToken as string)
       // localStorage.setItem('user', JSON.stringify(user))
       updateToken(user.accessToken as string)
-      router.push('/veiculos')
+      router.push(`/${slug}/veiculos`)
     } catch (error) {
       alert('email ou senha inválidos')
       console.log(error)

@@ -6,9 +6,11 @@ import { CarProfile, Motorcycle } from '@phosphor-icons/react'
 import { MotorcyclesDataProps } from '@/app/types/motorcyclesDataProps'
 import { VehiclesDataProps } from '@/app/types/vehiclesDataProps'
 import { useStorage } from '../contexts/useStorage'
+// import { useFirebase } from '../hooks/useFirebase'
 
 export default function Veiculos() {
   const { dataCar, dataMotorcycle } = useStorage()
+  // const { slug } = useFirebase()
   const router = useRouter()
 
   return (
@@ -19,7 +21,7 @@ export default function Veiculos() {
           <div>
             <section
               onClick={() => {
-                router.push('/veiculos/VehicleRegistrationForm')
+                router.push(`veiculos/VehicleRegistrationForm`)
                 dataCar({} as VehiclesDataProps)
               }}
             >
@@ -28,7 +30,7 @@ export default function Veiculos() {
             </section>
             <section
               onClick={() => {
-                router.push(`$[slug]/veiculos/MotorcycleRegistrationForm`)
+                router.push(`veiculos/MotorcycleRegistrationForm`)
                 dataMotorcycle({} as MotorcyclesDataProps)
               }}
             >

@@ -49,13 +49,13 @@ interface ProductProps {
 
 export default function Product({ params }: ProductProps) {
   const { dataCar, dataMotorcycle } = useStorage()
-  const { getLimitVehicles, getVehicle, deleteImg, deleteVehicle } =
+  const { getLimitVehicles, getVehicle, deleteImg, deleteVehicle, slug } =
     useFirebase()
+  const { token } = useAuth()
   const [docLimitVehicles, setDocLimitVehicles] = useState<
     VehiclesGeralProps[]
   >([])
   const [car, setCar] = useState<VehiclesGeralProps>({} as VehiclesGeralProps)
-  const { token } = useAuth()
   const router = useRouter()
 
   useEffect(() => {
@@ -63,14 +63,14 @@ export default function Product({ params }: ProductProps) {
       const VehicleData = await getVehicle(params.id)
       const limitVehicles = await getLimitVehicles(6)
 
-      setCar(VehicleData)
+      setCar(VehicleData as VehiclesGeralProps)
       // console.log(VehicleData.type)
       // dataCar(VehicleData)
       setDocLimitVehicles(limitVehicles)
     }
     VehicleData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [params.id])
+  }, [params.id, slug])
 
   const handleDelete = async () => {
     if (window.confirm('Tem certeza que deseja deletar o veículo?')) {
@@ -363,7 +363,7 @@ export default function Product({ params }: ProductProps) {
                       {car.type === '1' ? (
                         <Link
                           onClick={() => dataCar(car as VehiclesDataProps)}
-                          href={`/veiculos/VehicleRegistrationForm`}
+                          href={`/${slug}/veiculos/VehicleRegistrationForm`}
                         >
                           <span>
                             <Pencil size={24} />
@@ -375,7 +375,7 @@ export default function Product({ params }: ProductProps) {
                           onClick={() =>
                             dataMotorcycle(car as MotorcyclesDataProps)
                           }
-                          href={`/veiculos/MotorcycleRegistrationForm`}
+                          href={`/${slug}/veiculos/MotorcycleRegistrationForm`}
                         >
                           <span>
                             <Pencil size={24} />

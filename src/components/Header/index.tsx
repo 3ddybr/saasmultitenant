@@ -16,7 +16,7 @@ export function Header({ setMenuIsVisible }: any) {
   const pathname = usePathname()
   const { slug } = useFirebase()
 
-  console.log(slug)
+  // console.log(slug)
   return (
     <HeaderContainer>
       <HeaderContent>

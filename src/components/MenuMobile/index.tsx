@@ -30,7 +30,7 @@ export function MenuMobile({
           <X size={45} onClick={() => setMenuIsVisible(false)} color="white" />
           <div>
             <nav onClick={() => setMenuIsVisible(false)}>
-              <ActiveLink href="/app">
+              <ActiveLink href="/">
                 <span>Inicio</span>
               </ActiveLink>
               {token === null || token === undefined ? (
